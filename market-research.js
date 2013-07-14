@@ -112,7 +112,7 @@ if(require.main == module) {
 	    var link = $(this);
 	    var text = link.text();
 	    //var lang = link.lang();
-		console.log(text);
+		//console.log(text);
 //	    if(text === 'Helicopter lands in New York river, all safe'){
 		var flag = true;
 		//continue;
@@ -121,7 +121,13 @@ if(require.main == module) {
 	    var href = link.attr("href");
 	    //console.log(text + " -> " + href);
 	var alchemy = new AlchemyAPI('5bbb93b60d50ac7495f0333770c6963114c676f0');
-	
+	link.find("a").each(function(){
+	   var href1=  $(this).attr("href");
+	    alchemy.category(href1, {}, function(error, response){
+		var concept = response.category;
+		console.log(concept);
+});
+});
 
 	//alchemy.concepts(href, {}, function(error, response){
 	//var senti = response.docSentiment;
