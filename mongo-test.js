@@ -1,6 +1,6 @@
 
 var collections = ['newsdata'];
-var dataconnection = 'localhost/mongoapp';
+var dataconnection = 'localhost/newsdb';
 var db = require('mongojs').connect(dataconnection, collections);
 
 function metadata(link, keywords, relevance, concept){
@@ -18,7 +18,10 @@ db.newsdata.save(md1,function(err, saveUser){
     if(!err){
 	console.log(saveUser.link + "-> saved");
     }
+
 });
 }
+
+
 //AddToDb(md1);
 exports.AddToDb = AddToDb;

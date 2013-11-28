@@ -22,8 +22,8 @@ var SaveKeywords = function(keywords,link, category){
     entry.link = link;
     entry.category = category;
     entry.keyowrds = keywords;
-    console.log(JSON.stringify(entry));
-    //mongotest.AddToDb(entry);
+    //console.log(JSON.stringify(entry));
+    mongotest.AddToDb(entry);
 };
 
 if(require.main == module) {
@@ -44,15 +44,17 @@ if(require.main == module) {
 	  $("#main-content").find("li").each(function() {
 	    var link = $(this);
 	    var text = link.text();
+	    //console.log(text);
 		//var flag = true;
 	    //if(flag === true){
 	    var href = link.attr("href");
 	    //console.log(text + " -> " + href);
 	    var isEng = true;
-		if (!text.match('/^[a-zA-Z \.\!\?]*$/')) {
-		    isEng = false;
-		    console.log(isEng + ": is here");
-		}	
+	   if (text.match('/^[a-zA-Z \.\!\?]*$/') != null) {
+		  console.log('Non-english chars detected.');
+		  isEng = false;
+		}
+	
 	   if(isEng){
 	   var alchemy = new AlchemyAPI('5bbb93b60d50ac7495f0333770c6963114c676f0');
 	   link.find("a").each(function(){
@@ -67,7 +69,7 @@ if(require.main == module) {
 
 	    alchemy.keywords(href1, {}, function(error, response){
 		var keywords = response.keywords;
-		console.log(keywords);
+		//console.log(keywords);
 		SaveKeywords(keywords,href1,category);
 	    });
 
